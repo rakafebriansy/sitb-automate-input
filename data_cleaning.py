@@ -5,10 +5,10 @@ df = pd.read_excel("data entri TB .xls", engine="xlrd")
 
 df["HASIL PEMERIKSAAN_clean"] = (
     df["HASIL PEMERIKSAAN"]
-    .astype(str)                # ubah jadi string
-    .str.upper()                # kapital semua
-    .str.replace(r"\s+", " ", regex=True)  # rapikan spasi
-    .str.replace(";", ":", regex=False)    # samakan pemisah
+    .astype(str) #change to string first
+    .str.upper() # capitalize
+    .str.replace(r"\s+", " ", regex=True) # fix space
+    .str.replace(";", ":", regex=False) # fix separator
 )
 
 def extract_values(text):
@@ -47,12 +47,12 @@ parsed = df["HASIL PEMERIKSAAN_clean"].apply(extract_values).apply(pd.Series)
 
 df_clean = pd.concat([df, parsed], axis=1)
 
-# pastikan semua object jadi string aman
+# make sure all object columns are string
 for col in df_clean.select_dtypes(include=["object"]).columns:
     df_clean[col] = df_clean[col].astype(str)
-    # buang karakter aneh
+    # remove leading/trailing whitespace
     df_clean[col] = df_clean[col].str.replace(r"[\r\n\t]", " ", regex=True)
-    # kalau ada yang diawali "=" ganti jadi "'="
+    # fix equal sign
     df_clean[col] = df_clean[col].apply(lambda x: "'"+x if x.strip().startswith("=") else x)
 df_clean.to_excel("data_clean.xlsx", index=False)
 
