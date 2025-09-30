@@ -10,16 +10,25 @@ import math
 
 # ---------- Config ----------
 INPUT_FILE = "data/data_clean.xlsx"
-ITERATE = 5
+ITERATE = None
 STATE_FILE = "data/state.json"
 load_dotenv(override=True)
 
 # ---------- Utils ----------
-def random_date_in_year(year=2025, dmy=False):
-    start_date = date(year, 1, 1)
-    end_date = date(year, 12, 31)
+import random
+from datetime import date, timedelta
+
+def random_date_in_year(year=2025, start_month=1, end_month=12, dmy=False):
+    start_date = date(year, start_month, 1)
+
+    if end_month == 12:
+        end_date = date(year, 12, 31)
+    else:
+        end_date = date(year, end_month + 1, 1) - timedelta(days=1)
+
     delta_days = (end_date - start_date).days
     random_days = random.randint(0, delta_days)
+
     result_date = start_date + timedelta(days=random_days)
     return result_date.strftime("%d-%m-%Y") if dmy else result_date.strftime("%Y-%m-%d")
 
@@ -95,7 +104,7 @@ print(f"[INFO] Total rows to process: {iterate_count} (of {len(df)})")
 for idx in range(start_index, start_index + iterate_count):
     row = df.iloc[idx]
     nama_pasien = row.get("Nama Pasien", f"Peserta-{idx}")
-    tgl_skrining = random_date_in_year(2025)
+    tgl_skrining = random_date_in_year(2025,end_month=9)
     umur = str(row.get("UMUR", "25"))
 
     # determine default BB/TB based on gender
@@ -120,8 +129,8 @@ for idx in range(start_index, start_index + iterate_count):
 
     payload = {
         "tgl_skrining": tgl_skrining,
-        "kegiatan_id": "1",
-        "metode_id": "2",
+        "kegiatan_id": "99",
+        "metode_id": "99", #str(random.randint(1,3)),
         "tempat_skrining_id": "3",
         "nama_peserta": nama_pasien,
         "nik": str(row.get("NIK", "1234567890123456")),
@@ -141,22 +150,23 @@ for idx in range(start_index, start_index + iterate_count):
         "status_domisili_id": "1",
         "pekerjaan_id": "16",
         "riwayat_kontak_tb_id": "2",
-        "risiko_1_id": "1",
-        "risiko_2_id": "1",
-        "risiko_3_id": "1",
-        "risiko_4_id": "1",
-        "risiko_5_id": "2",
-        "risiko_6_id": "2",
-        "risiko_7_id": "2",
-        "risiko_8_id": "1",
-        "risiko_10_id": "1",
-        "risiko_11_id": "1",
-        "gejala_2_1_id": "1",
-        "gejala_2_3_id": "1",
-        "gejala_2_4_id": "1",
-        "gejala_2_5_id": "1",
-        "gejala_6_id": "1",
-        "cxr_pemeriksaan_id": "1",
+        "risiko_1_id": "0",
+        "risiko_2_id": "0",
+        "risiko_3_id": "0",
+        "risiko_4_id": "0",
+        "risiko_5_id": "0",
+        "risiko_6_id": "0",
+        "risiko_7_id": "0",
+        "risiko_8_id": "0",
+        "risiko_10_id": "0",
+        "risiko_11_id": "0",
+        "gejala_2_1_id": "0",
+        "gejala_2_3_id": "0",
+        "gejala_2_4_id": "0",
+        "gejala_2_5_id": "0",
+        "gejala_6_id": "0",
+        "hasil_skrining_id": "0",
+        "cxr_pemeriksaan_id": "0",
         "cxr_alasan": "belum tersedia fasilitas",
         "jenis_unit_pelaksana_id": "4",
         "warga_negara_id": "1",
@@ -164,7 +174,7 @@ for idx in range(start_index, start_index + iterate_count):
         "umur_th": umur,
         "umur_bl": "0",
         "no_telp": generate_phone_number(),
-        "terduga_tb_id": "2"
+        "terduga_tb_id": "0"
     }
     try: 
         r = session.post(target_url, data=payload, verify=False)
@@ -179,7 +189,7 @@ for idx in range(start_index, start_index + iterate_count):
             break
 
         # delay random 0.1 to 1 second
-        time.sleep(random.uniform(0.1, 1))
+        time.sleep(random.uniform(0.1, 0.5))
 
         # delay 15 seconds every 1000 rows
         if (idx + 1) % 1000 == 0:
