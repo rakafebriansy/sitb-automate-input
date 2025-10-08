@@ -9,9 +9,9 @@ import json
 import math
 
 # ---------- Config ----------
-INPUT_FILE = "data/data_clean.xlsx"
+INPUT_FILE = "data/patumbak/data_clean.xlsx"
 ITERATE = None
-STATE_FILE = "data/state.json"
+STATE_FILE = "data/patumbak/state.json"
 load_dotenv(override=True)
 
 # ---------- Utils ----------

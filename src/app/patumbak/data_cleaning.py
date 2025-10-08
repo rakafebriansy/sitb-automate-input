@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 # ---------- Config ----------
 load_dotenv(override=True)
-INPUT_FILE = "data/data entri TB .xls"
-OUTPUT_FILE = "data/data_clean.xlsx"
+INPUT_FILE = "data/patumbak/data entri TB .xls"
+OUTPUT_FILE = "data/patumbak/data_clean.xlsx"
 
 # ---------- Utils ----------
 def extract_values(text):
@@ -41,7 +41,7 @@ def to_float(value):
         return None
 
 # ---------- Load Kelurahan/Desa Data ----------
-with open("data/kelurahan.json", "r", encoding="utf-8") as f:
+with open("data/patumbak/kelurahan.json", "r", encoding="utf-8") as f:
     desa_data = json.load(f)
 
 desa_mapping = {

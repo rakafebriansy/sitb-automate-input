@@ -3,7 +3,7 @@ import subprocess
 
 DISTRICT = 'patumbak'
 
-BASE_DIR = "src"
+BASE_DIR = "src/app"
 MAIN_FILE = "main.py"
 
 target_dir = os.path.join(BASE_DIR, DISTRICT) if DISTRICT else None
