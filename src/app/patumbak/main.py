@@ -176,9 +176,11 @@ for idx in range(start_index, start_index + iterate_count):
         "no_telp": generate_phone_number(),
         "terduga_tb_id": "0"
     }
+
     try: 
         r = session.post(target_url, data=payload, verify=False)
         print(f"Row {idx + 1} -> {nama_pasien} | {tgl_skrining} -> Status {r.status_code}")
+        print(f"RESPONSE: {print(r.text)}")
 
         # if success, update state
         if r.status_code == 200:
