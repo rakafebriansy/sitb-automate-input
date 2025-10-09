@@ -11,7 +11,9 @@ import math
 # ---------- Config ----------
 INPUT_DIR = "data/mulyorejo"
 STATE_FILE = "data/mulyorejo/state.json"
-ITERATE = 1
+ITERATE = None
+START=4
+END=10
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -68,7 +70,7 @@ current_year = datetime.now().year
 target_url = os.getenv("TARGET_URL")
 
 # ---------- Loop All Clean Files ----------
-for i in range(4, 5):
+for i in range(START, END + 1):
     file_name = f"DATA {i}_clean.xlsx"
     input_file = os.path.join(INPUT_DIR, file_name)
 
@@ -82,10 +84,10 @@ for i in range(4, 5):
     # per file progress
     file_state = state.get(file_name, {"last_row": 0})
     start_index = file_state["last_row"]
-    iterate_count = ITERATE if (ITERATE and ITERATE > 0) else len(df)
+    iterate_count = ITERATE + start_index if (ITERATE and ITERATE > 0) else len(df)
     print(f"[INFO] Total rows to process: {iterate_count} (of {len(df)})")
 
-    for idx in range(start_index, start_index + iterate_count):
+    for idx in range(start_index, iterate_count):
         row = df.iloc[idx]
         nama_peserta = row.get("nama_peserta", f"Peserta-{idx}")
         umur_th = int(row.get("umur_th"))

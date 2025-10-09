@@ -48,4 +48,5 @@ coverage.xml
 Thumbs.db
 
 # Generated files
-data_clean.xlsx
+*_clean.xls
+*_clean.xlsx

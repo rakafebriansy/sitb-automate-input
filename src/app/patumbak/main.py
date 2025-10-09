@@ -98,10 +98,10 @@ start_index = state["last_row"]
 print(f"[INFO] Starting from {start_index}")
 
 current_year = datetime.now().year
-iterate_count = ITERATE if (ITERATE and ITERATE > 0) else len(df)
+iterate_count = ITERATE + start_index if (ITERATE and ITERATE > 0) else len(df)
 print(f"[INFO] Total rows to process: {iterate_count} (of {len(df)})")
 
-for idx in range(start_index, start_index + iterate_count):
+for idx in range(start_index, iterate_count):
     row = df.iloc[idx]
     nama_pasien = row.get("Nama Pasien", f"Peserta-{idx}")
     tgl_skrining = random_date_in_year(2025,end_month=9)
