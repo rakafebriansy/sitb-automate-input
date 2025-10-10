@@ -12,6 +12,7 @@ import math
 INPUT_DIR = "data/mulyorejo"
 STATE_FILE = "data/mulyorejo/state.json"
 ITERATE = None
+UNIT_PELAKSANA_ID="578"
 START=4
 END=10
 load_dotenv(override=True)
@@ -157,7 +158,7 @@ for i in range(START, END + 1):
             "cxr_alasan": "belum tersedia fasilitas",
             "jenis_unit_pelaksana_id": "4",
             "warga_negara_id": "1",
-            "unit_pelaksana_id": "578",
+            "unit_pelaksana_id": UNIT_PELAKSANA_ID,
             "umur_th": str(umur_th),
             "umur_bl": str(umur_bl),
             "no_telp": generate_phone_number(),

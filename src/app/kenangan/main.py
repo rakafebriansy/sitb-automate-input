@@ -11,6 +11,7 @@ import json
 FILE_NAME = "data/kenangan/DATA KAK SARI CANTEK_clean.xlsx"
 STATE_FILE = "data/kenangan/state.json"
 ITERATE = None
+UNIT_PELAKSANA_ID = "586"
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -159,7 +160,7 @@ else:
             "cxr_alasan": "belum tersedia fasilitas",
             "jenis_unit_pelaksana_id": "4",
             "warga_negara_id": "1",
-            "unit_pelaksana_id": "586",
+            "unit_pelaksana_id": UNIT_PELAKSANA_ID,
             "umur_th": str(umur_th),
             "umur_bl": "0",
             "no_telp": generate_phone_number(),

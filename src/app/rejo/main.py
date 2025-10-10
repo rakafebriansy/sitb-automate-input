@@ -7,6 +7,7 @@ scripts = [
     "src/app/rejo/2/main.py",
     "src/app/rejo/3/main.py",
     "src/app/rejo/4/main.py",
+    "src/app/rejo/5/main.py",
 ]
 
 env = os.environ.copy()

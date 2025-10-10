@@ -11,6 +11,7 @@ import json
 FILE_NAME = "data/rejo/1/lansia_clean.xlsx"
 STATE_FILE = "data/rejo/1/state.json"
 ITERATE = None
+UNIT_PELAKSANA_ID="587"
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -108,12 +109,12 @@ else:
         tb_raw = row.get("tinggi_badan", None)
 
         if pd.isna(bb_raw) or str(bb_raw).strip() == "" or bb_raw == 0 or bb_raw:
-            bb = random.randint(10, 50)
+            bb = default_bb
         else:
             bb = int(float(bb_raw))
 
         if pd.isna(tb_raw) or str(tb_raw).strip() == "" or tb_raw == 0:
-            tb = random.randint(10, 50)
+            tb = default_tb
         else:
             tb = int(float(tb_raw))
 
@@ -155,10 +156,10 @@ else:
             "risiko_8_id": "0",
             "risiko_10_id": "0",
             "risiko_11_id": "0",
-            # "gejala_1_1_id": "0",
-            # "gejala_1_3_id": "0",
-            # "gejala_1_4_id": "0",
-            # "gejala_1_5_id": "0",
+            "gejala_1_1_id": "0",
+            "gejala_1_3_id": "0",
+            "gejala_1_4_id": "0",
+            "gejala_1_5_id": "0",
             "gejala_2_1_id": "0",
             "gejala_2_3_id": "0",
             "gejala_2_4_id": "0",
@@ -169,7 +170,7 @@ else:
             "cxr_alasan": "belum tersedia fasilitas",
             "jenis_unit_pelaksana_id": "4",
             "warga_negara_id": "1",
-            "unit_pelaksana_id": "587",
+            "unit_pelaksana_id": UNIT_PELAKSANA_ID,
             "umur_th": str(umur_th),
             "umur_bl": "0",
             "no_telp": generate_phone_number(),

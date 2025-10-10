@@ -12,6 +12,7 @@ import math
 INPUT_FILE = "data/patumbak/data_clean.xlsx"
 ITERATE = None
 STATE_FILE = "data/patumbak/state.json"
+UNIT_PELAKSANA_ID="576"
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -170,7 +171,7 @@ for idx in range(start_index, iterate_count):
         "cxr_alasan": "belum tersedia fasilitas",
         "jenis_unit_pelaksana_id": "4",
         "warga_negara_id": "1",
-        "unit_pelaksana_id": "576",
+        "unit_pelaksana_id": UNIT_PELAKSANA_ID,
         "umur_th": umur,
         "umur_bl": "0",
         "no_telp": generate_phone_number(),
