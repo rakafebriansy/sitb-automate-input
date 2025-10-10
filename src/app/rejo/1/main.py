@@ -10,7 +10,7 @@ import json
 # ---------- Config ----------
 FILE_NAME = "data/rejo/1/lansia_clean.xlsx"
 STATE_FILE = "data/rejo/1/state.json"
-ITERATE = 1
+ITERATE = None
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -104,9 +104,19 @@ else:
             default_bb = random.randint(60, 70)
             default_tb = random.randint(165, 175)
 
+        bb_raw = row.get("berat_badan", None) 
+        tb_raw = row.get("tinggi_badan", None)
 
-        bb = float(row.get("berat_badan", default_bb) or default_bb)
-        tb = float(row.get("tinggi_badan", default_tb) or default_tb)
+        if pd.isna(bb_raw) or str(bb_raw).strip() == "" or bb_raw == 0 or bb_raw:
+            bb = random.randint(10, 50)
+        else:
+            bb = int(float(bb_raw))
+
+        if pd.isna(tb_raw) or str(tb_raw).strip() == "" or tb_raw == 0:
+            tb = random.randint(10, 50)
+        else:
+            tb = int(float(tb_raw))
+
         imt = round(bb / ((tb / 100) ** 2), 1)
 
         tgl_skrining = random_date_in_year(2025,end_month=8)

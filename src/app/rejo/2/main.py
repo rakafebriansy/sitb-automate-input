@@ -10,7 +10,7 @@ import json
 # ---------- Config ----------
 FILE_NAME = "data/rejo/2/rawat_jalan_clean.xlsx"
 STATE_FILE = "data/rejo/2/state.json"
-ITERATE = 3
+ITERATE = None
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -108,7 +108,7 @@ else:
         bb_raw = row.get("berat_badan", None) 
         tb_raw = row.get("tinggi_badan", None)
 
-        if pd.isna(bb_raw) or str(bb_raw).strip() == "" or bb_raw == 0:
+        if pd.isna(bb_raw) or str(bb_raw).strip() == "" or bb_raw == 0 or bb_raw:
             bb = random.randint(10, 50)
         else:
             bb = int(float(bb_raw))
