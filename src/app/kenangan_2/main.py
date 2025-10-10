@@ -8,10 +8,10 @@ import time
 import json
 
 # ---------- Config ----------
-FILE_NAME = "data/hamper/Data_Verifikasi_clean.xlsx"
-STATE_FILE = "data/hamper/state.json"
+FILE_NAME = "data/kenangan_2/Daftar Pasien_clean.xlsx"
+STATE_FILE = "data/kenangan_2/state.json"
 ITERATE = None
-UNIT_PELAKSANA_ID='581'
+UNIT_PELAKSANA_ID = "586"
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -89,7 +89,7 @@ else:
         if(kecamatan_id == None or kelurahan_id == None):
             break
 
-        nama_peserta = row.get("nama_peserta")
+        nama_peserta = row.get("nama_peserta", f"Peserta-{idx}")
         umur_raw = row.get("umur", None)
         if pd.isna(umur_raw) or str(umur_raw).strip() == "" or umur_raw == 0:
             umur_th = random.randint(10, 50)
@@ -106,22 +106,11 @@ else:
             default_tb = random.randint(165, 175)
 
 
-        bb_raw = row.get("berat_badan", None) 
-        tb_raw = row.get("tinggi_badan", None)
-
-        if pd.isna(bb_raw) or str(bb_raw).strip() == "" or bb_raw == 0 or bb_raw:
-            bb = default_bb
-        else:
-            bb = int(float(bb_raw))
-
-        if pd.isna(tb_raw) or str(tb_raw).strip() == "" or tb_raw == 0:
-            tb = default_tb
-        else:
-            tb = int(float(tb_raw))
-
+        bb = float(row.get("BB", default_bb) or default_bb)
+        tb = float(row.get("TB", default_tb) or default_tb)
         imt = round(bb / ((tb / 100) ** 2), 1)
 
-        tgl_skrining = random_date_in_year(2025,start_month=3,end_month=4)
+        tgl_skrining = random_date_in_year(2025,end_month=7)
 
         payload = {
             "tgl_skrining": tgl_skrining,
@@ -138,7 +127,7 @@ else:
             "imt": str(imt),
             "hasil_skrining_id": "1",
             "tindak_lanjut_id": "3",
-            "keterangan": row.get("catatan", "tidak ada catatan"),
+            "keterangan": row.get("CATATAN", "tidak ada catatan"),
             "provinsi_ktp_id": "2",
             "kabupaten_ktp_id": "35",
             "kecamatan_ktp_id": kecamatan_id,

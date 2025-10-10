@@ -10,7 +10,7 @@ import json
 # ---------- Config ----------
 FILE_NAME = "data/kenangan/DATA KAK SARI CANTEK_clean.xlsx"
 STATE_FILE = "data/kenangan/state.json"
-ITERATE = None
+ITERATE = 17000
 UNIT_PELAKSANA_ID = "586"
 load_dotenv(override=True)
 
