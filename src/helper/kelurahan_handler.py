@@ -4,8 +4,8 @@ import time
 import urllib3
 
 # ---------- Config ----------
-INPUT_JSON = "data/kenangan/kecamatan.json"
-OUTPUT_JSON = "data/kenangan/kelurahan.json"
+INPUT_JSON = "data/helper/kecamatan.json"
+OUTPUT_JSON = "data/helper/kelurahan.json"
 BASE_URL = "https://sulawesi.sitb.id/sitb2024/ref/Kelurahan/LookupData"
 
 # ---------- Nonaktifkan SSL Warning ----------

@@ -8,9 +8,9 @@ import time
 import json
 
 # ---------- Config ----------
-FILE_NAME = "data/kenangan/DATA KAK SARI CANTEK_clean.xlsx"
-STATE_FILE = "data/kenangan/state.json"
-ITERATE = None
+FILE_NAME = "data/rejo/1/lansia_clean.xlsx"
+STATE_FILE = "data/rejo/1/state.json"
+ITERATE = 1
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -88,7 +88,7 @@ else:
         if(kecamatan_id == None or kelurahan_id == None):
             break
 
-        nama_peserta = row.get("nama_peserta", f"Peserta-{idx}")
+        nama_peserta = row.get("nama_peserta")
         umur_raw = row.get("umur", None)
         if pd.isna(umur_raw) or str(umur_raw).strip() == "" or umur_raw == 0:
             umur_th = random.randint(10, 50)
@@ -105,11 +105,11 @@ else:
             default_tb = random.randint(165, 175)
 
 
-        bb = float(row.get("BB", default_bb) or default_bb)
-        tb = float(row.get("TB", default_tb) or default_tb)
+        bb = float(row.get("berat_badan", default_bb) or default_bb)
+        tb = float(row.get("tinggi_badan", default_tb) or default_tb)
         imt = round(bb / ((tb / 100) ** 2), 1)
 
-        tgl_skrining = random_date_in_year(2025,end_month=7)
+        tgl_skrining = random_date_in_year(2025,end_month=8)
 
         payload = {
             "tgl_skrining": tgl_skrining,
@@ -126,7 +126,7 @@ else:
             "imt": str(imt),
             "hasil_skrining_id": "1",
             "tindak_lanjut_id": "3",
-            "keterangan": row.get("CATATAN", "tidak ada catatan"),
+            "keterangan": row.get("catatan", "tidak ada catatan"),
             "provinsi_ktp_id": "2",
             "kabupaten_ktp_id": "35",
             "kecamatan_ktp_id": kecamatan_id,
@@ -159,7 +159,7 @@ else:
             "cxr_alasan": "belum tersedia fasilitas",
             "jenis_unit_pelaksana_id": "4",
             "warga_negara_id": "1",
-            "unit_pelaksana_id": "586",
+            "unit_pelaksana_id": "587",
             "umur_th": str(umur_th),
             "umur_bl": "0",
             "no_telp": generate_phone_number(),
