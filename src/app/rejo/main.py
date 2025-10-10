@@ -3,8 +3,8 @@ import sys
 import os
 
 scripts = [
-    "src/app/rejo/1/main.py",
-    # "src/app/rejo/2/main.py",
+    # "src/app/rejo/1/main.py",
+    "src/app/rejo/2/main.py",
     # "src/app/rejo/3/main.py",
 ]
 
