@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-DISTRICT = 'kenangan_2'
+DISTRICT = 'rejo'
 
 BASE_DIR = "src/app"
 MAIN_FILE = "main.py"
