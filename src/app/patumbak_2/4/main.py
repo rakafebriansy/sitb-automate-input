@@ -8,10 +8,10 @@ import time
 import json
 
 # ---------- Config ----------
-FILE_NAME = "data/rejo/6/DATA SKRINING MEDAN ESTATE_clean.xlsx"
-STATE_FILE = "data/rejo/6/state.json"
+FILE_NAME = "data/patumbak_2/4/clean_SMK N 1 Patumbak.xlsx"
+STATE_FILE = "data/patumbak_2/4/state.json"
 ITERATE = None
-UNIT_PELAKSANA_ID="587"
+UNIT_PELAKSANA_ID="576"
 load_dotenv(override=True)
 
 # ---------- Utils ----------
@@ -50,8 +50,8 @@ def generate_phone_number(international=False):
 session = requests.Session()
 login_url = os.getenv("LOGIN_URL")
 credentials = {
-    "username": os.getenv("USERNAME"),
-    "password": os.getenv("PASSWORD")
+    "username": os.getenv("USERNAME_2"),
+    "password": os.getenv("PASSWORD_2")
 }
 print("[◌] Logging in with:", credentials)
 resp = session.post(login_url, data=credentials, verify=False)
@@ -72,7 +72,7 @@ if not os.path.exists(FILE_NAME):
 
 else:
     print(f"\n📘 Memproses file: {FILE_NAME}")
-    df = pd.read_excel(FILE_NAME)
+    df = pd.read_excel(FILE_NAME, dtype={"nik": str})
 
     # per file progress
     state = load_state(STATE_FILE)
@@ -106,7 +106,7 @@ else:
             tb = random.randint(165, 175)
 
         imt = round(bb / ((tb / 100) ** 2), 1)
-        tgl_skrining = random_date_in_year(2025, start_month=7,end_month=7)
+        tgl_skrining = random_date_in_year(2025, start_month=10,end_month=10)
 
         payload = {
             "tgl_skrining": tgl_skrining,
@@ -126,8 +126,8 @@ else:
             "keterangan": row.get("catatan", "tidak ada catatan"),
             "provinsi_ktp_id": "2",
             "kabupaten_ktp_id": "35",
-            "kecamatan_ktp_id": '501',
-            "kelurahan_ktp_id": '58922',
+            "kecamatan_ktp_id": '496',
+            "kelurahan_ktp_id": '5474',
             "status_domisili_id": "1",
             "pekerjaan_id": "16",
             "riwayat_kontak_tb_id": "2",
@@ -159,7 +159,7 @@ else:
             "unit_pelaksana_id": UNIT_PELAKSANA_ID,
             "umur_th": str(umur_th),
             "umur_bl": row.get("umur_bl", "0"),
-            "no_telp": generate_phone_number(),
+            "no_telp": row.get("no_telp", generate_phone_number()),
             "terduga_tb_id": "0",
         }
 
